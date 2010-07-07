@@ -1,10 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Person do
-  it 'should have first and last name' do
-    p = Person.new(:first_name => "Eve", :last_name => "Smith")
-    p.first_name.should == "Eve"
-    p.last_name.should == "Smith"
+  it 'should respond_to :first_name and :last_name' do
+    p = Person.new
+    p.should respond_to(:first_name)
+    p.should respond_to(:last_name)
   end
   
   it 'should construct a full name' do
@@ -12,23 +12,32 @@ describe Person do
     p.full_name.should == "Eve Smith"
   end
   
-  it 'should save a valid record with first_name and last name' do
-    p = Person.new(:first_name => "Eve", :last_name => "Smith")
-    p.save
-    p.should be_valid
-  end
-
-  it 'should not save a record with only first name' do
+  it 'should not be valid if first_name is missing' do
     p = Person.new(:first_name => "Eve")
-    p.save
     p.should_not be_valid
     p.errors[:last_name].should == "can't be blank"
   end
 
-  it 'should not save a record with only last name' do
+  it 'should not be valid if last_name is missing' do
     p = Person.new(:last_name => "Smith")
-    p.save
     p.should_not be_valid
+    p.errors[:first_name].should == "can't be blank"
+  end
+
+  it 'should save a record when valid' do
+    p = Person.new(:first_name => "Eve", :last_name => "Smith")
+    p.should be_valid
+    lambda {
+      p.save
+    }.should change(Person, :count).by(1)
+  end
+
+  it 'should not save a record when invalid' do
+    p = Person.new(:last_name => "Smith")
+    p.should_not be_valid
+    lambda {
+      p.save
+    }.should_not change(Person, :count)
     p.errors[:first_name].should == "can't be blank"
   end
 
