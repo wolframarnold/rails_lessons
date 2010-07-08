@@ -1,14 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Person do
-  it 'should have first and last name' do
-    p = Person.new(:first_name => "Eve", :last_name => "Smith")
-    p.first_name.should == "Eve"
-    p.last_name.should == "Smith"
-  end
-
   describe "addresses" do
-    it 'should have many addresses' do
+    it 'should have an addresses method' do
       pending
       p = Person.new(:first_name => "Eve", :last_name => "Smith")
       p.should respond_to :addresses
@@ -17,7 +11,7 @@ describe Person do
     it 'should have no addresses in a new record' do
       pending
       p = Person.new(:first_name => "Eve", :last_name => "Smith")
-      p.addresses should be_empty
+      p.addresses.should be_empty
     end
 
     it 'should allow creation of an address' do
