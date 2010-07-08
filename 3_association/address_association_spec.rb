@@ -1,5 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
-
+require 'spec_helper'
 
 describe Address do
     before(:each) do
@@ -15,11 +14,13 @@ describe Address do
   describe "Association" do
 
     it "should respond to :person" do
+      pending
       addr = Address.new
       addr.should respond_to(:person)
     end
 
     it "should allow creation of a person" do
+      pending
       addr = Address.create!(@valid_attributes)
 
       lambda {      

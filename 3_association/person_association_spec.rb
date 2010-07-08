@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
 describe Person do
   describe "addresses" do
@@ -26,6 +26,7 @@ describe Person do
 
   describe "phones" do
     it 'should have many phone numbers ' do
+      pending
       p = Person.new(:first_name => "Eve", :last_name => "Smith")
       p.should respond_to :phones
     end
